@@ -47,7 +47,7 @@
 static char *file_get_pass(const UI_METHOD *ui_method, char *pass,
                            size_t maxsize, const char *prompt_info, void *data)
 {
-    UI *ui = UI_new();
+    UI_SSL *ui = UI_new();
     char *prompt = NULL;
 
     if (ui == NULL) {
@@ -150,7 +150,7 @@ static int file_get_pem_pass(char *buf, int num, int w, void *data)
  *                  be higher in the (unlikely) event that the data matches
  *                  more than one possibility.  The int will always be
  *                  zero when the function is called.
- *    ui_method:    Application UI method for getting a password, pin
+ *    ui_method:    Application UI_SSL method for getting a password, pin
  *                  or any other interactive data.
  *    ui_data:      Application data to be passed to ui_method when
  *                  it's called.

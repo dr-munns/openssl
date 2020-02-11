@@ -50,7 +50,7 @@ int EVP_read_pw_string_min(char *buf, int min, int len, const char *prompt,
 {
     int ret = -1;
     char buff[BUFSIZ];
-    UI *ui;
+    UI_SSL *ui;
 
     if ((prompt == NULL) && (prompt_string[0] != '\0'))
         prompt = prompt_string;

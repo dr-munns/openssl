@@ -57,7 +57,7 @@ SSL_psk_find_session_cb_func            datatype
 SSL_psk_server_cb_func                  datatype
 SSL_psk_use_session_cb_func             datatype
 SSL_verify_cb                           datatype
-UI                                      datatype
+UI_SSL                                      datatype
 UI_METHOD                               datatype
 UI_STRING                               datatype
 UI_string_types                         datatype

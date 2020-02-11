@@ -39,7 +39,7 @@ typedef OSSL_STORE_INFO *(*OSSL_STORE_post_process_info_fn)(OSSL_STORE_INFO *,
                                                             void *);
 
 /*
- * Open a channel given a URI.  The given UI method will be used any time the
+ * Open a channel given a URI.  The given UI_SSL method will be used any time the
  * loader needs extra input, for example when a password or pin is needed, and
  * will be passed the same user data every time it's needed in this context.
  *

@@ -28,21 +28,21 @@ struct ui_method_st {
      * whatever. This function should use the ex_data structure to save
      * intermediate data.
      */
-    int (*ui_open_session) (UI *ui);
-    int (*ui_write_string) (UI *ui, UI_STRING *uis);
+    int (*ui_open_session) (UI_SSL *ui);
+    int (*ui_write_string) (UI_SSL *ui, UI_STRING *uis);
     /*
      * Flush the output.  If a GUI dialog box is used, this function can be
      * used to actually display it.
      */
-    int (*ui_flush) (UI *ui);
-    int (*ui_read_string) (UI *ui, UI_STRING *uis);
-    int (*ui_close_session) (UI *ui);
+    int (*ui_flush) (UI_SSL *ui);
+    int (*ui_read_string) (UI_SSL *ui, UI_STRING *uis);
+    int (*ui_close_session) (UI_SSL *ui);
     /*
      * Duplicate the ui_data that often comes alongside a ui_method.  This
-     * allows some backends to save away UI information for later use.
+     * allows some backends to save away UI_SSL information for later use.
      */
-    void *(*ui_duplicate_data) (UI *ui, void *ui_data);
-    void (*ui_destroy_data) (UI *ui, void *ui_data);
+    void *(*ui_duplicate_data) (UI_SSL *ui, void *ui_data);
+    void (*ui_destroy_data) (UI_SSL *ui, void *ui_data);
     /*
      * Construct a prompt in a user-defined manner.  object_desc is a textual
      * short description of the object, for example "pass phrase", and
@@ -50,7 +50,7 @@ struct ui_method_st {
      * name. The returned string shall always be allocated on the heap with
      * OPENSSL_malloc(), and need to be free'd with OPENSSL_free().
      */
-    char *(*ui_construct_prompt) (UI *ui, const char *object_desc,
+    char *(*ui_construct_prompt) (UI_SSL *ui, const char *object_desc,
                                   const char *object_name);
     /*
      * UI_METHOD specific application data.
@@ -68,7 +68,7 @@ struct ui_string_st {
      */
     char *result_buf;           /* Input and Output: If not NULL,
                                  * user-defined with size in result_maxsize.
-                                 * Otherwise, it may be allocated by the UI
+                                 * Otherwise, it may be allocated by the UI_SSL
                                  * routine, meaning result_minsize is going
                                  * to be overwritten. */
     size_t result_len;

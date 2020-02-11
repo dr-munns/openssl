@@ -622,9 +622,9 @@
   *) Add SHA3.
      [Andy Polyakov]
 
-  *) The UI API becomes a permanent and integral part of libcrypto, i.e.
+  *) The UI_SSL API becomes a permanent and integral part of libcrypto, i.e.
      not possible to disable entirely.  However, it's still possible to
-     disable the console reading UI method, UI_OpenSSL() (use UI_null()
+     disable the console reading UI_SSL method, UI_OpenSSL() (use UI_null()
      as a fallback).
 
      To disable, configure with 'no-ui-console'.  'no-ui' is still
@@ -668,7 +668,7 @@
      to that system and do the rest of the build there.
      [Richard Levitte]
 
-  *) In the UI interface, make it possible to duplicate the user data.  This
+  *) In the UI_SSL interface, make it possible to duplicate the user data.  This
      can be used by engines that need to retain the data for a longer time
      than just the call where this user data is passed.
      [Richard Levitte]

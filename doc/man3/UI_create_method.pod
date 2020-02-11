@@ -21,32 +21,32 @@ interface method creation and destruction
 
  UI_METHOD *UI_create_method(const char *name);
  void UI_destroy_method(UI_METHOD *ui_method);
- int UI_method_set_opener(UI_METHOD *method, int (*opener) (UI *ui));
+ int UI_method_set_opener(UI_METHOD *method, int (*opener) (UI_SSL *ui));
  int UI_method_set_writer(UI_METHOD *method,
-                          int (*writer) (UI *ui, UI_STRING *uis));
- int UI_method_set_flusher(UI_METHOD *method, int (*flusher) (UI *ui));
+                          int (*writer) (UI_SSL *ui, UI_STRING *uis));
+ int UI_method_set_flusher(UI_METHOD *method, int (*flusher) (UI_SSL *ui));
  int UI_method_set_reader(UI_METHOD *method,
-                          int (*reader) (UI *ui, UI_STRING *uis));
- int UI_method_set_closer(UI_METHOD *method, int (*closer) (UI *ui));
+                          int (*reader) (UI_SSL *ui, UI_STRING *uis));
+ int UI_method_set_closer(UI_METHOD *method, int (*closer) (UI_SSL *ui));
  int UI_method_set_data_duplicator(UI_METHOD *method,
-                                   void *(*duplicator) (UI *ui, void *ui_data),
-                                   void (*destructor)(UI *ui, void *ui_data));
+                                   void *(*duplicator) (UI_SSL *ui, void *ui_data),
+                                   void (*destructor)(UI_SSL *ui, void *ui_data));
  int UI_method_set_prompt_constructor(UI_METHOD *method,
-                                      char *(*prompt_constructor) (UI *ui,
+                                      char *(*prompt_constructor) (UI_SSL *ui,
                                                                    const char
                                                                    *object_desc,
                                                                    const char
                                                                    *object_name));
  int UI_method_set_ex_data(UI_METHOD *method, int idx, void *data);
- int (*UI_method_get_opener(const UI_METHOD *method)) (UI *);
- int (*UI_method_get_writer(const UI_METHOD *method)) (UI *, UI_STRING *);
- int (*UI_method_get_flusher(const UI_METHOD *method)) (UI *);
- int (*UI_method_get_reader(const UI_METHOD *method)) (UI *, UI_STRING *);
- int (*UI_method_get_closer(const UI_METHOD *method)) (UI *);
+ int (*UI_method_get_opener(const UI_METHOD *method)) (UI_SSL *);
+ int (*UI_method_get_writer(const UI_METHOD *method)) (UI_SSL *, UI_STRING *);
+ int (*UI_method_get_flusher(const UI_METHOD *method)) (UI_SSL *);
+ int (*UI_method_get_reader(const UI_METHOD *method)) (UI_SSL *, UI_STRING *);
+ int (*UI_method_get_closer(const UI_METHOD *method)) (UI_SSL *);
  char *(*UI_method_get_prompt_constructor(const UI_METHOD *method))
-     (UI *, const char *, const char *);
- void *(*UI_method_get_data_duplicator(const UI_METHOD *method)) (UI *, void *);
- void (*UI_method_get_data_destructor(const UI_METHOD *method)) (UI *, void *);
+     (UI_SSL *, const char *, const char *);
+ void *(*UI_method_get_data_duplicator(const UI_METHOD *method)) (UI_SSL *, void *);
+ void (*UI_method_get_data_destructor(const UI_METHOD *method)) (UI_SSL *, void *);
  const void *UI_method_get_ex_data(const UI_METHOD *method, int idx);
 
 =head1 DESCRIPTION
@@ -59,35 +59,35 @@ These functions are:
 
 =item an opener
 
-This function takes a reference to a UI and starts a session, for
+This function takes a reference to a UI_SSL and starts a session, for
 example by opening a channel to a tty, or by creating a dialog box.
 
 =item a writer
 
-This function takes a reference to a UI and a UI String, and writes
+This function takes a reference to a UI_SSL and a UI_SSL String, and writes
 the string where appropriate, maybe to the tty, maybe added as a field
 label in a dialog box.
-Note that this gets fed all strings associated with a UI, one after
+Note that this gets fed all strings associated with a UI_SSL, one after
 the other, so care must be taken which ones it actually uses.
 
 =item a flusher
 
-This function takes a reference to a UI, and flushes everything that
+This function takes a reference to a UI_SSL, and flushes everything that
 has been output so far.
 For example, if the method builds up a dialog box, this can be used to
 actually display it and accepting input ended with a pressed button.
 
 =item a reader
 
-This function takes a reference to a UI and a UI string and reads off
+This function takes a reference to a UI_SSL and a UI_SSL string and reads off
 the given prompt, maybe from the tty, maybe from a field in a dialog
 box.
-Note that this gets fed all strings associated with a UI, one after
+Note that this gets fed all strings associated with a UI_SSL, one after
 the other, so care must be taken which ones it actually uses.
 
 =item a closer
 
-This function takes a reference to a UI, and closes the session, maybe
+This function takes a reference to a UI_SSL, and closes the session, maybe
 by closing the channel to the tty, maybe by destroying a dialog box.
 
 =back
@@ -125,7 +125,7 @@ If an error occurs, jump to 5.
 
 =item 2.
 
-For every UI String associated with the UI, call the writer function
+For every UI_SSL String associated with the UI_SSL, call the writer function
 if that one's defined.
 If an error occurs, jump to 5.
 
@@ -136,7 +136,7 @@ If an error occurs, jump to 5.
 
 =item 4.
 
-For every UI String associated with the UI, call the reader function
+For every UI_SSL String associated with the UI_SSL, call the reader function
 if that one's defined.
 If an error occurs, jump to 5.
 
@@ -146,9 +146,9 @@ Close the session using the closer function if that one's defined.
 
 =back
 
-UI_create_method() creates a new UI method with a given B<name>.
+UI_create_method() creates a new UI_SSL method with a given B<name>.
 
-UI_destroy_method() destroys the given UI method B<ui_method>.
+UI_destroy_method() destroys the given UI_SSL method B<ui_method>.
 
 UI_method_set_opener(), UI_method_set_writer(),
 UI_method_set_flusher(), UI_method_set_reader() and
@@ -201,7 +201,7 @@ data associated with the method.
 
 =head1 SEE ALSO
 
-L<UI(3)>, L<CRYPTO_get_ex_data(3)>, L<UI_STRING(3)>
+L<UI_SSL(3)>, L<CRYPTO_get_ex_data(3)>, L<UI_STRING(3)>
 
 =head1 HISTORY
 

@@ -33,7 +33,7 @@ int UI_UTIL_read_pw(char *buf, char *buff, int size, const char *prompt,
                     int verify)
 {
     int ok = 0;
-    UI *ui;
+    UI_SSL *ui;
 
     if (size < 1)
         return -1;
@@ -96,11 +96,11 @@ DEFINE_RUN_ONCE_STATIC(ui_method_data_index_init)
     return 1;
 }
 
-static int ui_open(UI *ui)
+static int ui_open(UI_SSL *ui)
 {
     return 1;
 }
-static int ui_read(UI *ui, UI_STRING *uis)
+static int ui_read(UI_SSL *ui, UI_STRING *uis)
 {
     switch (UI_get_string_type(uis)) {
     case UIT_PROMPT:
@@ -130,11 +130,11 @@ static int ui_read(UI *ui, UI_STRING *uis)
     }
     return 1;
 }
-static int ui_write(UI *ui, UI_STRING *uis)
+static int ui_write(UI_SSL *ui, UI_STRING *uis)
 {
     return 1;
 }
-static int ui_close(UI *ui)
+static int ui_close(UI_SSL *ui)
 {
     return 1;
 }

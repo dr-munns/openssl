@@ -190,21 +190,21 @@ static void popsig(void);
 # if defined(OPENSSL_SYS_MSDOS) && !defined(_WIN32)
 static int noecho_fgets(char *buf, int size, FILE *tty);
 # endif
-static int read_string_inner(UI *ui, UI_STRING *uis, int echo, int strip_nl);
+static int read_string_inner(UI_SSL *ui, UI_STRING *uis, int echo, int strip_nl);
 
-static int read_string(UI *ui, UI_STRING *uis);
-static int write_string(UI *ui, UI_STRING *uis);
+static int read_string(UI_SSL *ui, UI_STRING *uis);
+static int write_string(UI_SSL *ui, UI_STRING *uis);
 
-static int open_console(UI *ui);
-static int echo_console(UI *ui);
-static int noecho_console(UI *ui);
-static int close_console(UI *ui);
+static int open_console(UI_SSL *ui);
+static int echo_console(UI_SSL *ui);
+static int noecho_console(UI_SSL *ui);
+static int close_console(UI_SSL *ui);
 
 /*
  * The following function makes sure that info and error strings are printed
  * before any prompt.
  */
-static int write_string(UI *ui, UI_STRING *uis)
+static int write_string(UI_SSL *ui, UI_STRING *uis)
 {
     switch (UI_get_string_type(uis)) {
     case UIT_ERROR:
@@ -221,7 +221,7 @@ static int write_string(UI *ui, UI_STRING *uis)
     return 1;
 }
 
-static int read_string(UI *ui, UI_STRING *uis)
+static int read_string(UI_SSL *ui, UI_STRING *uis)
 {
     int ok = 0;
 
@@ -277,7 +277,7 @@ static int read_till_nl(FILE *in)
 static volatile sig_atomic_t intr_signal;
 # endif
 
-static int read_string_inner(UI *ui, UI_STRING *uis, int echo, int strip_nl)
+static int read_string_inner(UI_SSL *ui, UI_STRING *uis, int echo, int strip_nl)
 {
     static int ps;
     int ok;
@@ -374,7 +374,7 @@ static int read_string_inner(UI *ui, UI_STRING *uis, int echo, int strip_nl)
 }
 
 /* Internal functions to open, handle and close a channel to the console.  */
-static int open_console(UI *ui)
+static int open_console(UI_SSL *ui)
 {
     CRYPTO_THREAD_write_lock(ui->lock);
     is_a_tty = 1;
@@ -481,7 +481,7 @@ static int open_console(UI *ui)
     return 1;
 }
 
-static int noecho_console(UI *ui)
+static int noecho_console(UI_SSL *ui)
 {
 # ifdef TTY_FLAGS
     memcpy(&(tty_new), &(tty_orig), sizeof(tty_orig));
@@ -523,7 +523,7 @@ static int noecho_console(UI *ui)
     return 1;
 }
 
-static int echo_console(UI *ui)
+static int echo_console(UI_SSL *ui)
 {
 # if defined(TTY_set) && !defined(OPENSSL_SYS_VMS)
     memcpy(&(tty_new), &(tty_orig), sizeof(tty_orig));
@@ -560,7 +560,7 @@ static int echo_console(UI *ui)
     return 1;
 }
 
-static int close_console(UI *ui)
+static int close_console(UI_SSL *ui)
 {
     if (tty_in != stdin)
         fclose(tty_in);

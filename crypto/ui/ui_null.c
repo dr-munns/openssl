@@ -10,7 +10,7 @@
 #include "ui_local.h"
 
 static const UI_METHOD ui_null = {
-    "OpenSSL NULL UI",
+    "OpenSSL NULL UI_SSL",
     NULL,                        /* opener */
     NULL,                        /* writer */
     NULL,                        /* flusher */

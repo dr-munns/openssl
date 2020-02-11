@@ -46,7 +46,7 @@ OSSL_STORE_close() to work together.
 
 =head2 Functions
 
-OSSL_STORE_open() takes a uri or path B<uri>, password UI method
+OSSL_STORE_open() takes a uri or path B<uri>, password UI_SSL method
 B<ui_method> with associated data B<ui_data>, and post processing
 callback B<post_process> with associated data B<post_process_data>,
 opens a channel to the data located at that URI and returns a

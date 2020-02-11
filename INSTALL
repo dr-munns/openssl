@@ -536,7 +536,7 @@
                    --strict-warnings option).
 
   no-ui
-                   Don't build with the "UI" capability (i.e. the set of
+                   Don't build with the "UI_SSL" capability (i.e. the set of
                    features enabling text based prompts).
 
   enable-unit-test

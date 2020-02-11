@@ -51,7 +51,7 @@ The specific structures are:
     SSL
     SSL_CTX
     SSL_SESSION
-    UI
+    UI_SSL
     UI_METHOD
     X509
     X509_STORE

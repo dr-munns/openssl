@@ -25,7 +25,7 @@ L RAND          include/openssl/rand.h          crypto/rand/rand_err.c
 L DSO           include/internal/dso.h          crypto/dso/dso_err.c
 L ENGINE        include/openssl/engine.h        crypto/engine/eng_err.c
 L OCSP          include/openssl/ocsp.h          crypto/ocsp/ocsp_err.c
-L UI            include/openssl/ui.h            crypto/ui/ui_err.c
+L UI_SSL            include/openssl/ui.h            crypto/ui/ui_err.c
 L COMP          include/openssl/comp.h          crypto/comp/comp_err.c
 L TS            include/openssl/ts.h            crypto/ts/ts_err.c
 L CMS           include/openssl/cms.h           crypto/cms/cms_err.c

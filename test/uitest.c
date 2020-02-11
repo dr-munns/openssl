@@ -27,13 +27,13 @@ static int test_pem_password_cb(char *buf, int size, int rwflag, void *userdata)
 }
 
 /*
- * Test wrapping old style PEM password callback in a UI method through the
- * use of UI utility functions
+ * Test wrapping old style PEM password callback in a UI_SSL method through the
+ * use of UI_SSL utility functions
  */
 static int test_old(void)
 {
     UI_METHOD *ui_method = NULL;
-    UI *ui = NULL;
+    UI_SSL *ui = NULL;
     char defpass[] = "password";
     char pass[16];
     int ok = 0;
@@ -43,7 +43,7 @@ static int test_old(void)
             || !TEST_ptr(ui = UI_new_method(ui_method)))
         goto err;
 
-    /* The wrapper passes the UI userdata as the callback userdata param */
+    /* The wrapper passes the UI_SSL userdata as the callback userdata param */
     UI_add_user_data(ui, defpass);
 
     if (!UI_add_input_string(ui, "prompt", UI_INPUT_FLAG_DEFAULT_PWD,
@@ -52,7 +52,7 @@ static int test_old(void)
 
     switch (UI_process(ui)) {
     case -2:
-        TEST_info("test_old: UI process interrupted or cancelled");
+        TEST_info("test_old: UI_SSL process interrupted or cancelled");
         /* fall through */
     case -1:
         goto err;
@@ -70,7 +70,7 @@ static int test_old(void)
     return ok;
 }
 
-/* Test of UI.  This uses the UI method defined in apps/apps.c */
+/* Test of UI_SSL.  This uses the UI_SSL method defined in apps/apps.c */
 static int test_new_ui(void)
 {
     PW_CB_DATA cb_data = {

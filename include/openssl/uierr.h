@@ -21,7 +21,7 @@ extern "C"
 int ERR_load_UI_strings(void);
 
 /*
- * UI function codes.
+ * UI_SSL function codes.
  */
 # define UI_F_CLOSE_CONSOLE                               115
 # define UI_F_ECHO_CONSOLE                                116
@@ -46,7 +46,7 @@ int ERR_load_UI_strings(void);
 # define UI_F_UI_SET_RESULT_EX                            120
 
 /*
- * UI reason codes.
+ * UI_SSL reason codes.
  */
 # define UI_R_COMMON_OK_AND_CANCEL_CHARACTERS             104
 # define UI_R_INDEX_TOO_LARGE                             102

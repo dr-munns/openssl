@@ -141,7 +141,7 @@ typedef struct v3_ext_ctx X509V3_CTX;
 typedef struct conf_st CONF;
 typedef struct ossl_init_settings_st OPENSSL_INIT_SETTINGS;
 
-typedef struct ui_st UI;
+typedef struct ui_st UI_SSL;
 typedef struct ui_method_st UI_METHOD;
 
 typedef struct engine_st ENGINE;

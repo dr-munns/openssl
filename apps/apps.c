@@ -180,18 +180,18 @@ int dump_cert_text(BIO *out, X509 *x)
     return 0;
 }
 
-static int ui_open(UI *ui)
+static int ui_open(UI_SSL *ui)
 {
-    int (*opener)(UI *ui) = UI_method_get_opener(ui_fallback_method);
+    int (*opener)(UI_SSL *ui) = UI_method_get_opener(ui_fallback_method);
 
     if (opener)
         return opener(ui);
     return 1;
 }
 
-static int ui_read(UI *ui, UI_STRING *uis)
+static int ui_read(UI_SSL *ui, UI_STRING *uis)
 {
-    int (*reader)(UI *ui, UI_STRING *uis) = NULL;
+    int (*reader)(UI_SSL *ui, UI_STRING *uis) = NULL;
 
     if (UI_get_input_flags(uis) & UI_INPUT_FLAG_DEFAULT_PWD
         && UI_get0_user_data(ui)) {
@@ -221,9 +221,9 @@ static int ui_read(UI *ui, UI_STRING *uis)
     return 1;
 }
 
-static int ui_write(UI *ui, UI_STRING *uis)
+static int ui_write(UI_SSL *ui, UI_STRING *uis)
 {
-    int (*writer)(UI *ui, UI_STRING *uis) = NULL;
+    int (*writer)(UI_SSL *ui, UI_STRING *uis) = NULL;
 
     if (UI_get_input_flags(uis) & UI_INPUT_FLAG_DEFAULT_PWD
         && UI_get0_user_data(ui)) {
@@ -251,9 +251,9 @@ static int ui_write(UI *ui, UI_STRING *uis)
     return 1;
 }
 
-static int ui_close(UI *ui)
+static int ui_close(UI_SSL *ui)
 {
-    int (*closer)(UI *ui) = UI_method_get_closer(ui_fallback_method);
+    int (*closer)(UI_SSL *ui) = UI_method_get_closer(ui_fallback_method);
 
     if (closer)
         return closer(ui);
@@ -290,7 +290,7 @@ const UI_METHOD *get_ui_method(void)
 int password_callback(char *buf, int bufsiz, int verify, PW_CB_DATA *cb_tmp)
 {
     int res = 0;
-    UI *ui = NULL;
+    UI_SSL *ui = NULL;
     PW_CB_DATA *cb_data = (PW_CB_DATA *)cb_tmp;
 
     ui = UI_new_method(ui_method);
